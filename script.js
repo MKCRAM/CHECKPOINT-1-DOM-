@@ -1,85 +1,25 @@
-var produit = document.getElementsByClassName("test")
-let totalPrice =document.getElementById("total")
-var options = document.getElementsByClassName("option")
-var like1 = document.getElementById("aimer1")
-var like2 = document.getElementById("aimer2")
-var like3 = document.getElementById("aimer3")
+// Créer des produits
+const Produit1 = new Produit( "B1", "Baskets","100")
+console.log(Produit1) 
+const Produit2 = new Produit( "S1", "Socks","20")
+console.log(Produit2) 
+const Produit3 = new Produit( "Bg1", "Bag","50")
+console.log(Produit3) 
 
-// LIKE BUTTON
+// Créer un panier d'achat
+const panier = new Panier();
+//ajouter un article au panier
+panier.ajouterArticle(Produit1,2)
+panier.ajouterArticle(Produit2,2)
+panier.ajouterArticle(Produit3,5)
+console.log(panier)
 
-like1.addEventListener("click", function(){
-if (like1.style.color==="red"){
-    like1.style.color="black"
-}else{
-  like1.style.color="red"  
-}
-})
-like2.addEventListener("click", function(){
-    if (like2.style.color==="red"){
-        like2.style.color="black"
-    }else{
-      like2.style.color="red"  
-    }
-    })
-like3.addEventListener("click", function(){
-if (like3.style.color==="red"){
-    like3.style.color="black"
-}else{
-  like3.style.color="red"  
-}
-})
+//Total du panier
+console.log(panier.calculerTotal()+"$")
 
+//Afficher contenu du panier
+console.log(panier.afficherPanier())
 
-//Incrementer // décrementer // supprimer du panier
-
-for (let i=0; i<produit.length;i++){
-    let btnPlus = produit[i].children[3].children[0];
-    let btnMoins = produit[i].children[3].children[2];
-    let deleteBtn = options[i].children[0];
-    let quantite = produit[i].children[3].children[1];
-    let qty=parseInt(quantite.innerText)
-    let tot = produit[i].children[4].children[1];
-    let prixUnit =produit[i].children[2]
-    let price =parseInt(prixUnit.innerText)
-    
-
-
-// Bouton pour incrementer
-    btnPlus.addEventListener("click", function(){
-        qty++
-        quantite.innerText=qty;
-        tot.innerText = price*qty;
-        somme()
-        
-    })
-// Bouton pour décrementer
-    btnMoins.addEventListener("click",function(){
-        if (qty>0){
-        qty--
-        quantite.innerText=qty
-        tot.innerText=price*qty}  
-        somme()
-    })
-        
-    
-// Bouton pour supprimer du panier
-deleteBtn.addEventListener("click",function(){
-    if (qty=0)
-    qty--
-    quantite.innerText=qty
-    tot.innerText= price*qty
-    somme()
-})
-    
-}
-// // TOTAL PRICE
-function somme() {
-    let sum = 0;
-    let soustotal= document.getElementsByClassName("price");
-    for (let i = 0; i < soustotal.length; i++){
-        let totaux = parseInt(soustotal[i].innerText)
-        sum = sum+totaux
-    }
-totalPrice.innerHTML=sum
-
-}
+// Supprimer un article du panier
+panier.supprimerArticle("Baskets")
+console.log(panier)
